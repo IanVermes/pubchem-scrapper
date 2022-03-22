@@ -29,6 +29,7 @@ class ScrapeConstants:
     url: str
     main_selector: str
     fallback_selector: str
+    other_fallback_selector: str
     data_selectors: DataSelectorConstants
 
     @classmethod
@@ -37,6 +38,7 @@ class ScrapeConstants:
         url = yaml_data.get("url", "")
         main_selector = yaml_data.get("main_selector", "")
         fallback_selector = yaml_data.get("fallback_selector", "")
+        other_fallback_selector = yaml_data.get("other_fallback_selector", "")
         data_selectors = DataSelectorConstants.from_yaml(
             yaml_data.get("data_selectors", {})
         )
@@ -45,6 +47,7 @@ class ScrapeConstants:
             url=url,
             main_selector=main_selector,
             fallback_selector=fallback_selector,
+            other_fallback_selector=other_fallback_selector,
             data_selectors=data_selectors,
         )
         return obj
@@ -139,6 +142,5 @@ def create_browser(
     BrowserFactory, OptionsFactory, exectuable = get_browser_factory(directory)
     options = OptionsFactory()
     options.headless = headless
-    path = str(exectuable)
-    browser = BrowserFactory(executable_path=path_s, options=options)
+    browser = BrowserFactory(executable_path=str(exectuable), options=options)
     return browser
