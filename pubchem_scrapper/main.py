@@ -33,6 +33,7 @@ def build_arg_parser():
     parser.add_argument(
         "--in",
         action="store",
+        type=pathlib.Path,
         help="the IN file (a csv) to be used in the scrape",
     )
     parser.add_argument(

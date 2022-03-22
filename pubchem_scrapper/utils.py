@@ -112,7 +112,7 @@ def create_constants(constants_yaml: pathlib.Path) -> "Constants":
     return Constants.from_yaml(data)
 
 
-def get_web_browser(directory: pathlib.Path, headless: bool = False):
+def get_browser_factory(directory: pathlib.Path):
     files: t.List[pathlib.Path] = [
         file for file in directory.glob("*") if not file.name.startswith(".")
     ]
@@ -120,25 +120,25 @@ def get_web_browser(directory: pathlib.Path, headless: bool = False):
         raise ValueError(f"Expected 1 exectuable, got: {files!r}")
     else:
         exectuable = files.pop()
-        browser = create_browser(exectuable, headless)
-        return browser
-
-
-def create_browser(
-    path: pathlib.Path, headless: bool = False
-) -> t_SupportedWebBrowsers:
-
-    path_s = str(path)
-    if "geckodriver" == path.name:
+    if "geckodriver" == exectuable.name:
         OptionsFactory = webdriver.firefox.options.Options
         BrowserFactory = webdriver.Firefox
-    elif "chromedriver" == path.name:
+    elif "chromedriver" == exectuable.name:
         OptionsFactory = webdriver.chrome.options.Options
         BrowserFactory = webdriver.Chrome
     else:
         msg = f"Expected to find either a Firefox 'geckodriver' or Chrome 'chromedriver' binary, got {path.name}"
         raise ValueError(msg)
+    return BrowserFactory, OptionsFactory, exectuable
+
+
+def create_browser(
+    directory: pathlib.Path, headless: bool = False
+) -> t_SupportedWebBrowsers:
+
+    BrowserFactory, OptionsFactory, exectuable = get_browser_factory(directory)
     options = OptionsFactory()
     options.headless = headless
+    path = str(exectuable)
     browser = BrowserFactory(executable_path=path_s, options=options)
     return browser

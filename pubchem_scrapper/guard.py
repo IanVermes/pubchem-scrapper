@@ -3,7 +3,7 @@ from csv import DictReader
 
 import yaml
 
-from pubchem_scrapper.utils import get_web_browser, create_constants
+from pubchem_scrapper.utils import get_browser_factory, create_constants
 
 
 def guard_csv(csv: Path, constants):
@@ -11,7 +11,6 @@ def guard_csv(csv: Path, constants):
         msg = f"Cannot find file: '{str(csv)}'"
         raise ValueError(msg)
     with open(csv, "r") as handle:
-        sample = handle.read(1024)
         reader = DictReader(handle)
         headers = reader.fieldnames
     has_headers = bool(headers)
@@ -39,5 +38,5 @@ def guard_contants(constants_yml: Path):
 
 
 def guard_webdriver(webdriver_dir: Path):
-    get_web_browser(webdriver_dir, headless=False)
+    get_browser_factory(webdriver_dir)
     return
