@@ -2,11 +2,17 @@ import argparse
 import textwrap
 import pathlib
 
+from pubchem_scrapper import guard
+from pubchem_scrapper import utils
+
 _THIS_FILE = __file__
 
 
-def main():
-    pass
+def main(in_file_csv, constants_yml, webdriver_dir):
+    guard.guard_contants(constants_yml=constants_yml)
+    guard.guard_webdriver(webdriver_dir=webdriver_dir)
+    constants = utils.create_constants(constants_yml)
+    guard.guard_csv(csv=in_file_csv, constants=constants)
 
 
 def build_arg_parser():

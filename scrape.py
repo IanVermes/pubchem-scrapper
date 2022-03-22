@@ -15,6 +15,9 @@ if __name__ == "__main__":
     else:
         args = vars(namespace)
 
-    import pprint
-
-    pprint.pprint(args)
+    print(args.keys())
+    main.main(
+        in_file_csv=args["in"],
+        constants_yml=args["constants"],
+        webdriver_dir=args["webdriver"],
+    )
