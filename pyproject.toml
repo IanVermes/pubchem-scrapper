@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pubchem-scrapper"
+version = "0.1.0"
+description = "\"A fun, quick and dirty sraper for pubchem to help a colleague.\""
+authors = ["Ian Vermes <iv3@sanger.ac.uk>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+bs4 = "^0.0.1"
+selenium = "^4.1.3"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+ipython = "^8.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
