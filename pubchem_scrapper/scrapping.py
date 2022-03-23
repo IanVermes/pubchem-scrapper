@@ -7,7 +7,7 @@ import re
 
 RGX_COMPOUND_CID = re.compile(r"(?:compound\scid:\s)(\d+)", re.IGNORECASE)
 RGX_COMPOUND_IUPAC = re.compile(
-    r"(?:iupac\sname:\s)([\d\w\,\-\s]+?)(?=\s+\n)", re.IGNORECASE
+    r"(?:iupac\sname:\s)([\d\w\,\-\s\[\]\(\)\,\.\+\-\;]+?)(?=\s+\n)", re.IGNORECASE
 )
 WAIT_TIME = 10
 LOGGER = logging.getLogger()
