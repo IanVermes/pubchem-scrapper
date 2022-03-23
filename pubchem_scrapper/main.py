@@ -7,6 +7,10 @@ from pubchem_scrapper import utils
 from pubchem_scrapper import io
 from pubchem_scrapper import scrapping
 
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
 _THIS_FILE = __file__
 
 
